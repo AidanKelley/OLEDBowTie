@@ -1,0 +1,27 @@
+static const String oneartTitle[3] = {"\"One Art\"", "by", "Bishop"};
+static const int oneartLength = 872;
+static const char oneart[] PROGMEM =
+"The art of losing isn’t hard to master;/\n"
+"so many things seem filled with the intent/\n"
+"to be lost that their loss is no disaster./\n"
+"\n"
+"Lose something every day. Accept the fluster/\n"
+"of lost door keys, the hour badly spent./\n"
+"The art of losing isn’t hard to master./\n"
+"\n"
+"Then practice losing farther, losing faster:/\n"
+"places, and names, and where it was you meant/\n"
+"to travel. None of these will bring disaster./\n"
+"\n"
+"I lost my mother’s watch. And look! my last, or/\n"
+"next-to-last, of three loved houses went./\n"
+"The art of losing isn’t hard to master./\n"
+"\n"
+"I lost two cities, lovely ones. And, vaster,/\n"
+"some realms I owned, two rivers, a continent./\n"
+"I miss them, but it wasn’t a disaster./\n"
+"\n"
+"—Even losing you (the joking voice, a gesture/\n"
+"I love) I shan’t have lied. It’s evident/\n"
+"the art of losing’s not too hard to master/\n"
+"though it may look like (Write it!) like disaster./";
