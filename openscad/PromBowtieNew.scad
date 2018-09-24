@@ -30,9 +30,15 @@ module arm(indent) {
 			}
 		}
 		intersection() {
-			translate([-13, 0, -0.1]) rotate([0, 0, -45]) for(x = [-1:1:12]) {
+			translate([-10, -56, -0.1]) rotate([0, 0, 0])
+            for(x = [-1:1:12]) {
 				for(y = [-1:1:12]) {
-					translate([x*x, y*y, 0]) cube([1.2*x, 1.2*y, 70]);
+					translate([4*x * sqrt(3), 8*(y + 0.5 * x), 0]) if(x%2==0 && y%2==0) {
+                        cylinder(d=9, h=70, $fn=24);
+                    }
+                    else {
+                        cylinder(d=3, h=70, $fn=24);
+                    }
 				}
 			}
 			difference() {
