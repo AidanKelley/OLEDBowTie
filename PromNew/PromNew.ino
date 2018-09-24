@@ -1,15 +1,8 @@
+#include "book.h"
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include "book.h"
-#include "godot2.h"
-#include "the_dead.h"
-#include "hamlet.h"
-#include "one_art.h"
-#include "macbeth.h"
-#include "bradbury.h"
-#include "midsummer.h"
-#include "austen.h"
 #include "URW_Gothic_L_Book_8.h"
 #include "URW_Gothic_L_Book_15.h"
 #include "URW_Gothic_L_Book_20.h"
@@ -25,7 +18,7 @@ String getMaxString(String w, int s, uint16_t* width);
 volatile int currentBook = 0;
 volatile int currentBookLength = godot1Length;
 volatile const char* book = godot1;
-const int numBooks = 10;
+const int numBooks = 1;//10;
 String title[3] = godot1Title;
 
 volatile int pos = 0;
@@ -281,14 +274,14 @@ void loop() {
   switch(state) {
     case reading:
       if(millis() >= nextWordChange) {
-          current = pgm_read_byte(book + ind);
+          current = pgm_read_byte((const void*) (book + ind));
           
           if(calcInd) {
             calcInd = false;
         
             while (!(current == ' ' || current == '\n' || current == '\r' || current == '\t') && ind > 0) {
                 ind--;
-                current = pgm_read_byte(book + ind);
+                current = pgm_read_byte((const void*) (book + ind));
             }
           }
           
@@ -296,13 +289,13 @@ void loop() {
         
           while(current == ' ' || current == '\n' || current == '\r' || current == '\t') {
             ind++;
-            current = pgm_read_byte(book + ind);
+            current = pgm_read_byte((const void*) (book + ind));
           }
           
           while (!(current == ' ' || current == '\n' || current == '\r' || current == '\t')) {
             currentWord += current;
             ind++;
-            current = pgm_read_byte(book + ind);
+            current = pgm_read_byte((const void*) (book + ind));
           }
           ind++;
           Serial.println(ind);
@@ -419,60 +412,61 @@ void changeBook(int newBook) {
   currentBook = newBook;
   ind = 0;
   nextWordChange = millis();
-  switch (currentBook) {
-    case 1:
-      currentBookLength = godot2Length;
-      book = godot2;
-      memcpy(title, godot2Title, sizeof godot2Title);
-    break;
-    case 2:
-      currentBookLength = luckySpeechLength;
-      book = luckySpeech;
-      memcpy(title, luckySpeechTitle, sizeof luckySpeechTitle);
-      break;
-    case 3:
-        currentBookLength = joyceLength;
-        book = joyce;
-        memcpy(title, joyceTitle, sizeof joyceTitle);
-        break;
-    case 4:
-        currentBookLength = hamletLength;
-        book = hamlet;
-        memcpy(title, hamletTitle, sizeof hamletTitle);
-        break;
-    case 5:
-        currentBookLength = oneartLength;
-        book = oneart;
-        memcpy(title, oneartTitle, sizeof oneartTitle);
-        break;
-    case 6:
-        currentBookLength = macbethLength;
-        book = macbeth;
-        memcpy(title, macbethTitle, sizeof macbethTitle);
-        break;
-    case 7:
-        currentBookLength = bradburyLength;
-        book = bradbury;
-        memcpy(title, bradburyTitle, sizeof bradburyTitle);
-        break;
-    case 8:
-        currentBookLength = midsummerLength;
-        book = midsummer;
-        memcpy(title, midsummerTitle, sizeof midsummerTitle);
-        break;
-    case 9:
-        currentBookLength = austenLength;
-        book = austen;
-        memcpy(title, austenTitle, sizeof austenTitle);
-        break;
-    default:
+//  switch (currentBook) {
+//    case 1:
+//      currentBookLength = godot2Length;
+//      book = godot2;
+//      memcpy(title, godot2Title, sizeof godot2Title);
+//    break;
+//    case 2:
+//      currentBookLength = luckySpeechLength;
+//      book = luckySpeech;
+//      memcpy(title, luckySpeechTitle, sizeof luckySpeechTitle);
+//      break;
+//    case 3:
+//        currentBookLength = joyceLength;
+//        book = joyce;
+//        memcpy(title, joyceTitle, sizeof joyceTitle);
+//        break;
+//    case 4:
+//        currentBookLength = hamletLength;
+//        book = hamlet;
+//        memcpy(title, hamletTitle, sizeof hamletTitle);
+//        break;
+//    case 5:
+//        currentBookLength = oneartLength;
+//        book = oneart;
+//        memcpy(title, oneartTitle, sizeof oneartTitle);
+//        break;
+//    case 6:
+//        currentBookLength = macbethLength;
+//        book = macbeth;
+//        memcpy(title, macbethTitle, sizeof macbethTitle);
+//        break;
+//    case 7:
+//        currentBookLength = bradburyLength;
+//        book = bradbury;
+//        memcpy(title, bradburyTitle, sizeof bradburyTitle);
+//        break;
+//    case 8:
+//        currentBookLength = midsummerLength;
+//        book = midsummer;
+//        memcpy(title, midsummerTitle, sizeof midsummerTitle);
+//        break;
+//    case 9:
+//        currentBookLength = austenLength;
+//        book = austen;
+//        memcpy(title, austenTitle, sizeof austenTitle);
+//        break;
+//    default:
       //waiting for godot act 1
       currentBookLength = godot1Length;
       book = godot1;
       memcpy(title, godot1Title, sizeof godot1Title);
-    break;
-  }
+//    break;
+//  }
   printName();
+  return;
 }
 
 void printName() {
@@ -552,5 +546,3 @@ void printTimeDigit(int digit, int pos, bool white) {
         display.setTextColor(WHITE);
     }
 }
-
-
